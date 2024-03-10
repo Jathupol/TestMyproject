@@ -1,0 +1,114 @@
+/* Nav.css */
+
+/* Style for the navigation container */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  margin-bottom: 5px;
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the logo */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Style for the menu items */
+.menu-items {
+  display: flex;
+  gap: 2rem;
+  list-style-type: none;
+  font-size: 0.5rem;
+}
+
+/* Style for the menu item */
+.menu-item {
+  font-size: 1rem;
+}
+
+/* Style for the dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  width: 200px; /* เพิ่มความกว้างตามต้องการ */
+  display: flex;
+
+}
+.link:hover + .dropdown-menu {
+  display: flex;
+}
+
+/* Style for the dropdown menu when it's open */
+.dropdown-menu.active {
+  display: block;
+}
+
+/* Style for the dropdown menu items */
+.dropdown-menu-item {
+  font-size: 1rem;
+}
+
+/* Style for the link */
+.link {
+  color: #3182ce;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Style for the link when hovered */
+.link:hover {
+  color: #245eab;
+  display: flex;
+
+}
+/* Nav.css */
+
+/* Style for the search form container */
+.search-form {
+  position: relative;
+
+}
+
+/* Style for the search input */
+.search-input {
+  padding: 0.5rem 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: auto;
+  height: 30px;
+}
+
+/* Style for the search button */
+.search-button {
+  position: absolute;
+  top: 31.8%;
+  right: 2px;
+  transform: translateY(-50%);
+  background-color: #3182ce;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem;
+  cursor: pointer;
+  
+}
+
+/* Style for the search button icon */
+.search-button svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* Style for the search button icon on hover */
+.search-button:hover {
+  background-color: #245eab;
+}

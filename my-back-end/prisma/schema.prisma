@@ -1,0 +1,39 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  username    String
+  email       String   @unique
+  password    String
+  numberPhone String?
+
+}
+
+model Service {
+   id          Int      @id @default(autoincrement())
+  fName       String
+  lName       String
+  email       String   @unique
+  password    String
+  numberPhone String?
+  service     String // เปลี่ยนชื่อฟิลด์เป็นชื่อที่ตรงกับข้อมูลที่คุณรับจากฟอร์ม
+  province    String
+  amphure     String
+  tambon      String
+}
+
+model post {
+  id  Int @id @default(autoincrement())
+  post String
+  comment String
+  like String
+}

@@ -1,0 +1,46 @@
+/* src/components/Nav.css */
+.mobile-menu {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mobile-menu li {
+    padding-top: 0.5rem;
+  }
+  
+  /* เพิ่มการเพิ่มขนาดและสไตล์ข้อความเมื่อ hover ไปยังลิงก์ */
+  .menu-link:hover {
+    font-size: 1.2em; /* เพิ่มขนาดข้อความเมื่อ hover */
+    font-weight: bold; /* เพิ่มน้ำหนักตัวอักษรเมื่อ hover */
+  }
+  .menu-link {
+    transition: font-size 0.3s ease; /* เพิ่ม transition เพื่อสร้างการเปลี่ยนแปลงของ font-size อย่างนุ่มนวล */
+  }
+
+  .login-button:hover {
+    background-color: #0574dc; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
+    border-color: #0574dc; /* เปลี่ยนสีเส้นขอบเมื่อ hover */
+  }
+
+  .search-input {
+    width: 600px; /* กำหนดความกว้างของช่องค้นหา */
+    height: 35px;
+    /* border: 1px solid #ccc; เพิ่มเส้นขอบแบบ solid และสีเทา */
+    border-radius: 5px; /* เพิ่มขอบมน */
+    transition: width 0.3s ease; /* เพิ่ม transition เมื่อมีการเปลี่ยนความกว้าง */
+    margin-left: 100px;
+    
+  }
+  
+  /* เพิ่มสไตล์เมื่อ hover ไปยังช่องค้นหา */
+  .search-input:hover {
+    width: 630px; /* เพิ่มความกว้างเมื่อ hover */
+    border-color: #007bff; /* เปลี่ยนสีเส้นขอบเป็นสีน้ำเงินเมื่อ hover */
+  }
+  
+  /* ปรับสไตล์ของปุ่มค้นหาเมื่อ hover */
+  .search-button:hover {
+    background-color: #0574dc; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
+    border-color: #0574dc; /* เปลี่ยนสีเส้นขอบเมื่อ hover */
+    color: #fff; /* เปลี่ยนสีตัวอักษรเป็นขาวเมื่อ hover */
+  }

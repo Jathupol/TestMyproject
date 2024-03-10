@@ -1,0 +1,103 @@
+/* Login.css */
+
+.container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+/* Login.css */
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.5s ease;
+}
+/* Login.css */
+/* Login.css */
+/* Login.css */
+.icon-button {
+  background-color: transparent; /* ตั้งพื้นหลังของปุ่มเป็นโปร่งสำหรับปุ่ม icon */
+  border: none; /* ลบเส้นขอบของปุ่ม */
+  padding: 0; /* ไม่มีการเพิ่ม padding ในปุ่ม */
+  
+}
+
+.icon-button:focus {
+  outline: none; /* ลบเส้นขอบสีน้ำเงินที่ปรากฏเมื่อปุ่มถูกเลือก */
+}
+/* Login.css */
+
+/* Add dark mode styles */
+.dark {
+  background-color: #1f2937; /* Dark mode background color */
+  color: #f3f4f6; /* Dark mode text color */
+}
+
+/* Add dark mode styles for inputs */
+.dark input {
+  background-color: #374151; /* Dark mode input background color */
+  color: #f3f4f6; /* Dark mode input text color */
+}
+
+/* Add dark mode styles for eye icon */
+.dark .icon {
+  color: #f3f4f6; /* Dark mode icon color */
+}
+
+/* Add dark mode styles for button */
+.dark button {
+  background-color: #6d28d9; /* Dark mode button background color */
+  color: #f3f4f6; /* Dark mode button text color */
+}
+
+/* Add dark mode styles for links */
+.dark a {
+  color: #818cf8; /* Dark mode link color */
+}

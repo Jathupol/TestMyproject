@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center; /* จัดให้เนื้อหาอยู่ตรงกลางแนวตั้ง */
+  text-align: center;
+  /* margin-top: 2%; */
+
+}
+
+.search-input {
+  width: 50%; /* กำหนดความกว้างของช่องค้นหาให้เต็ม 80% ของพื้นที่ */
+  padding: 10px; /* กำหนด padding เพื่อสร้างพื้นที่รอบขอบของช่องค้นหา */
+  box-sizing: border-box; /* ให้ padding ไม่นับเข้าไปในความกว้างของช่องค้นหา */
+}
+
+.search-button {
+  padding: 10px 20px; /* กำหนด padding ให้ปุ่มสมบูรณ์ */
+  background-color: #007bff; /* กำหนดสีพื้นหลังของปุ่ม */
+  color: #fff; /* กำหนดสีตัวอักษรในปุ่ม */
+  border: none; /* กำหนดไม่มีเส้นขอบ */
+  border-radius: 5px; /* กำหนดขอบมน */
+  cursor: pointer; /* เปลี่ยนเป็นรูปแบบเคอร์เซอร์เป็นมือ */
+  margin-left: 10px; /* กำหนดระยะห่างซ้ายของปุ่มจากช่องค้นหา */
+}
+
+.search-button:hover {
+  background-color: #0056b3; /* กำหนดสีพื้นหลังของปุ่มเมื่อมีการชี้ไปที่ปุ่ม */
+}
+.slick-image {
+  width: auto; /* ปรับความกว้างของรูปภาพให้ปรับตามขนาดของภาพ */
+  height: 100%; /* ทำให้ความสูงของรูปภาพเต็มความสูงของสไลด์ */
+  margin: 0 auto; /* จัดให้รูปภาพอยู่ตรงกลางแนวนอน */
+  display: block; /* แสดงรูปภาพเป็นบล็อก */
+}
