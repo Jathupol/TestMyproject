@@ -7,6 +7,7 @@ import tambonData from "../component/api_tambon.json";
 import jobsData from "./jobs.json";
 
 import "../component/Register.css";
+import Navw from "../component/Navw";
 
 const RegisterService = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@ const RegisterService = () => {
     province: "",
     amphure: "",
     tambon: "",
+    detail:"",
   });
 
   const [amphures, setAmphures] = useState([]);
@@ -27,6 +29,7 @@ const RegisterService = () => {
   const navigate = useNavigate();
   const jobs = jobsData.jobs;
   const provinces = provinceData;
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,6 +71,7 @@ const RegisterService = () => {
       const response = await axios.post("http://localhost:3000/register",formData);
       
       console.log("Service registered:", response.data);
+
       navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);
@@ -76,6 +80,8 @@ const RegisterService = () => {
   };
 
   return (
+    <>
+    <Navw />
     <div className="register-container">
       <div className="register-form">
         <h2 className="register-title text-center">ลงทะเบียนสำหรับผู้ให้บริการ</h2>
@@ -203,6 +209,16 @@ const RegisterService = () => {
               ))}
             </select>
           </div>
+          <div>
+            <label htmlFor="detail">รายละเอียด</label>
+            <textarea
+              id="detail"
+              name="detail"
+              value={formData.detail}
+              onChange={handleChange}
+              className="register-input"
+            ></textarea>
+          </div>
           <button type="submit" className="register-button">
             ลงทะเบียน
           </button>
@@ -217,6 +233,7 @@ const RegisterService = () => {
         
       </div>
     </div>
+    </>
   );
 };
 

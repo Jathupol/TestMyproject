@@ -4,15 +4,20 @@ const { PrismaClient } = require('@prisma/client');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
+const updatedUser = require('./rout/updatedUser')
+const jwt = require('jsonwebtoken');
 
 
 const app = express();
 const prisma = new PrismaClient();
 
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+
 
 app.get('/helloword' ,function (req, res,next){
   res.json({msg: 'hello, word!'})
@@ -38,10 +43,10 @@ app.use((req, res, next) => {
 
 // Register a new user for the Service model
 app.post('/register', async (req, res) => {
-  const { fName, lName, email, password, numberPhone, service, province, amphure, tambon } = req.body;
+  const { fName, lName, email, password, numberPhone, service, province, amphure, tambon,detail } = req.body;
   try {
     // Check if all required fields are provided
-    if (!fName || !lName || !email || !password || !numberPhone || !service || !province || !amphure || !tambon) {
+    if (!fName || !lName || !email || !password || !numberPhone || !service || !province || !amphure || !tambon || !detail) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
@@ -60,6 +65,7 @@ app.post('/register', async (req, res) => {
         province,
         amphure,
         tambon,
+        detail
       },
     });
 
@@ -70,21 +76,26 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// Get user by ID
-app.get('/user/:userId', async (req, res) => {
-  const { userId } = req.params;
+app.post('/register-User', async (req, res) => {
+  const { username, email, password, numberPhone } = req.body;
+
+  // Hash the password
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    const user = await prisma.user.findUnique({ where: { id: parseInt(userId) }, include: { customer: true } });
-    
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
+    const user = await prisma.user.create({
+      data: {
+        username,
+        email,
+        password: hashedPassword,
+        numberPhone,
+      },
+    });
 
-    res.json({ user });
+    res.json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -117,10 +128,40 @@ app.post('/login', async (req, res) => {
       return res.status(404).json({ success: false, message: 'Invalid email or password' });
     }
 
-    res.status(200).json({ success: true, message: 'Login successful' });
+    // Return user data upon successful login
+    const loggedInUser = user || serviceUser;
+    res.status(200).json({ success: true, message: 'Login successful', user: loggedInUser });
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ success: false, message: 'An error occurred while logging in' });
+  }
+});
+
+app.put('/update-user/:id', async (req, res) => {
+  const userId = parseInt(req.params.id);
+  const { fName, lName, email, service, province, amphure, tambon, detail } = req.body;
+  try {
+    let dataToUpdate = {};
+    if (fName !== undefined) dataToUpdate.fName = fName;
+    if (lName !== undefined) dataToUpdate.lName = lName;
+    if (email !== undefined) dataToUpdate.email = email;
+    if (service !== undefined) dataToUpdate.service = service;
+    if (province !== undefined) dataToUpdate.province = province;
+    if (amphure !== undefined) dataToUpdate.amphure = amphure;
+    if (tambon !== undefined) dataToUpdate.tambon = tambon;
+    if (detail !== undefined) dataToUpdate.detail = detail;
+
+    const updatedUser = await prisma.service.update({
+      where: {
+        id: userId,
+      },
+      data: dataToUpdate,
+    });
+
+    res.status(200).json({ success: true, message: 'User information updated successfully', user: updatedUser });
+  } catch (error) {
+    console.error('Error updating user information:', error);
+    res.status(500).json({ success: false, message: 'An error occurred while updating user information' });
   }
 });
 
@@ -191,25 +232,155 @@ app.get('/services', async (req, res) => {
     res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการดึงข้อมูลผู้ให้บริการ' });
   }
 });
-// Endpoint สำหรับการค้นหาบริการในพื้นที่ที่เลือก
-app.get('/search-service', async (req, res) => {
-  const { province, amphure, tambon } = req.body;
-  
+
+
+
+app.get('/electrician', async (req, res) => {
   try {
-    const services = await prisma.service.findMany({
+    const users = await prisma.service.findMany({
       where: {
-        province,
-        amphure,
-        tambon,
+        // ค้นหาข้อมูลบริการที่มีคอลัมน์ service เป็น 'ช่างไฟฟ้า'
+        service: 'ช่างไฟฟ้า',
       },
     });
 
-    res.status(200).json({ success: true, services });
+    res.status(200).json({ success: true, users });
   } catch (error) {
     console.error('การค้นหาบริการล้มเหลว:', error);
     res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการค้นหาบริการ' });
   }
 });
+
+app.get('/plumber', async (req, res) => {
+  try {
+    const users = await prisma.service.findMany({
+      where: {
+        // ค้นหาข้อมูลบริการที่มีคอลัมน์ service เป็น 'ช่างไฟฟ้า'
+        service: 'ช่างประปา',
+      },
+    });
+
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error('การค้นหาบริการล้มเหลว:', error);
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการค้นหาบริการ' });
+  }
+});
+app.get('/ACT', async (req, res) => {
+  try {
+    const users = await prisma.service.findMany({
+      where: {
+        // ค้นหาข้อมูลบริการที่มีคอลัมน์ service เป็น 'ช่างไฟฟ้า'
+        service: 'ช่างแอร์',
+      },
+    });
+
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error('การค้นหาบริการล้มเหลว:', error);
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการค้นหาบริการ' });
+  }
+});
+app.get('/painter', async (req, res) => {
+  try {
+    const users = await prisma.service.findMany({
+      where: {
+        // ค้นหาข้อมูลบริการที่มีคอลัมน์ service เป็น 'ช่างไฟฟ้า'
+        service: 'ช่างสี',
+      },
+    });
+
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error('การค้นหาบริการล้มเหลว:', error);
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการค้นหาบริการ' });
+  }
+});
+app.get('/furniture', async (req, res) => {
+  try {
+    const users = await prisma.service.findMany({
+      where: {
+        service: 'ช่างฟอร์นิเจอร์',
+      },
+    });
+
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error('การค้นหาบริการล้มเหลว:', error);
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการค้นหาบริการ' });
+  }
+});
+app.get('/CSTW', async (req, res) => {
+  try {
+    const users = await prisma.service.findMany({
+      where: {
+        service: 'ช่างก่อสร้าง',
+      },
+    });
+
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error('การค้นหาบริการล้มเหลว:', error);
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการค้นหาบริการ' });
+  }
+});
+app.get('/Motorcycle-mechanic', async (req, res) => {
+  try {
+    const users = await prisma.service.findMany({
+      where: {
+        // ค้นหาข้อมูลบริการที่มีคอลัมน์ service เป็น 'ช่างไฟฟ้า'
+        service: 'ช่างซ่อมรถจักรยานยนต์',
+      },
+    });
+
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error('การค้นหาบริการล้มเหลว:', error);
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการค้นหาบริการ' });
+  }
+});
+app.get('/servicecar', async (req, res) => {
+  try {
+    const users = await prisma.service.findMany({
+      where: {
+        // ค้นหาข้อมูลบริการที่มีคอลัมน์ service เป็น 'ช่างไฟฟ้า'
+        service: 'ช่างซ่อมรถยนต์',
+      },
+    });
+
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error('การค้นหาบริการล้มเหลว:', error);
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการค้นหาบริการ' });
+  }
+});
+app.get('/DW', async (req, res) => {
+  try {
+    const users = await prisma.service.findMany({
+      where: {
+        // ค้นหาข้อมูลบริการที่มีคอลัมน์ service เป็น 'ช่างไฟฟ้า'
+        service: 'ช่างประตู-หน้าต่าง',
+      },
+    });
+
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error('การค้นหาบริการล้มเหลว:', error);
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการค้นหาบริการ' });
+  }
+});
+
+app.get('/allservice', async (req, res) => {
+  try {
+    const users = await prisma.service.findMany();
+
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error('การค้นหาบริการล้มเหลว:', error);
+    res.status(500).json({ success: false, message: 'เกิดข้อผิดพลาดในการค้นหาบริการ' });
+  }
+});
+
 
 
 app.listen(PORT, () => {

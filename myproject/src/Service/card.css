@@ -1,0 +1,137 @@
+.user-list-container {
+    margin-top: 20px;
+  }
+  
+  .user-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .user-card {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 300px;
+    display: flex; /* Add flex display */
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transition for transform and box-shadow */
+
+  }
+  .user-card:hover {
+    transform: translateY(-5px); /* Move the card up on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add a larger shadow on hover */
+  }
+  .profile-icon {
+    font-size: 40px;
+    margin-right: 20px;
+    color: #007bff; /* Icon color */
+  }
+  
+  .user-info h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  .user-info p {
+    margin: 5px 0;
+  }
+  .rating {
+    display: flex;
+    flex-direction: row-reverse; /* Reverse the order of stars */
+  }
+  
+  .rating input {
+    display: none; /* Hide radio buttons */
+  }
+  
+  .rating .star {
+    font-size: 24px;
+    cursor: pointer;
+    transition: color 0.25s ease-out;
+  }
+  
+  .rating .star:hover,
+  .rating .star:hover ~ .star {
+    color: #ffc107; /* Change color on hover */
+  }
+    
+  .user-details {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .user-details h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .user-details p {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  .user-details p:last-child {
+    margin-bottom: 0;
+  }
+  .popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5); /* สีพื้นหลังเป็นสีดำทึบๆ */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* เพิ่ม transition effect */
+  }
+  
+  .popup-container.active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .popup {
+    position: relative;
+    width: 400px; /* กำหนดขนาด Popup ตามต้องการ */
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px; /* ทำให้มุมของ Popup เป็นรูปทรงกลม */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* เพิ่มเงาให้ Popup */
+    transform: scale(0.8); /* เริ่มต้นแสดงขนาดเล็กลงเพื่อให้เป็นภาพเริ่มต้น */
+    opacity: 0; /* เริ่มต้นให้ Popup โปร่งใส */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* เพิ่ม transition effect */
+  }
+  
+  .popup-container.active .popup {
+    transform: scale(1); /* กำหนดขนาด Popup เป็นขนาดปกติ */
+    opacity: 1; /* กำหนดให้ Popup โปร่งใส */
+  }
+  
+  .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  
+  .user-list-container {
+    position: relative; /* กำหนดให้มีตำแหน่งเป็น Relative เพื่อให้ Popup Container เป็น Absolute */
+  }
+  
+  .highlight {
+    color: red; /* เปลี่ยนสีข้อความเป็นสีแดง */
+  }
+  
+  .highlight-label {
+    color: blue; /* เปลี่ยนสีข้อความเป็นสีฟ้า */
+  }
+  

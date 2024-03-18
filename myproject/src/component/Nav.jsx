@@ -1,12 +1,15 @@
 // Nav.jsx
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Nav.css"; // Import CSS file
-import { FaSearch } from "react-icons/fa"; // Import FaSearch icon from react-icons/fa
+import logo from "../pic/mylogo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Nav = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [searchTerm, setSearchTerm] = useState(""); // เพิ่ม state สำหรับเก็บค่าค้นหา
+  const navigate = useNavigate(); // Import useNavigate hook for programmatic navigation
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -15,38 +18,38 @@ const Nav = () => {
     setSearchTerm(e.target.value); // อัพเดตค่าค้นหาเมื่อมีการเปลี่ยนแปลง
   };
 
-  // ฟังก์ชัน handleSearchSubmit เพื่อจัดการเมื่อผู้ใช้กดปุ่มค้นหา
   const handleSearchSubmit = (e) => {
-    e.preventDefault(); // ป้องกันการรีเฟรชหน้า
-    console.log("Search term:", searchTerm); // ทดสอบแสดงผลค่าค้นหาใน console
-    // เพิ่มโค้ดสำหรับการค้นหาข้อมูลตามที่คุณต้องการ
+    e.preventDefault();
+    console.log("Search term:", searchTerm);
   };
+
+  const handleProfileClick = () => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("user"));
+      if (!userData) {
+        throw new Error("กรุณาเข้าสู่ระบบของผู้ให้บริการก่อน");
+      } else {
+        navigate("/Profile");
+      }
+    } catch (error) {
+      alert(error.message);
+      navigate("/login");
+    }
+  };
+
   return (
     <nav className="nav-container">
-      <div>
-        <h1 className="logo">Logo</h1>
+      <div className="logo">
+        <Link to="/home">
+          <img src={logo} alt="Logo" />
+        </Link>
       </div>
       <div>
         <ul className="menu-items">
-          <li className="menu-item">
-            <form onSubmit={handleSearchSubmit} className="search-form">
-              <input
-                type="text"
-                placeholder="ค้นหา..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className="search-input max-w-xs"
-              />
-              <button type="submit" className="search-button">
-                <FaSearch />
-              </button>
-            </form>
+          <li className="dropdown-menu-item">
+            <Link to="/home">หน้าหลัก</Link>
           </li>
-          <li className="menu-item">
-            <Link to="/Profile" className="link">
-              โปรไฟล์
-            </Link>
-          </li>
+
           <div className="relative">
             <li className="menu-item dropdown">
               <span onClick={toggleMenu} className="link">
@@ -56,40 +59,47 @@ const Nav = () => {
                 <div className="dropdown-menu">
                   <ul>
                     <li className="dropdown-menu-item">
-                      <Link to="/Service">ช่างไฟฟ้า</Link>
+                      <Link to="/search">ช่างไฟฟ้า</Link>
                     </li>
                     <li className="dropdown-menu-item">
-                      <Link to="/UserCard">ช่างประปา</Link>
+                      <Link to="/serviceplumer">ช่างประปา</Link>
                     </li>
                     <li className="dropdown-menu-item">
-                      <Link to="/UserListForm">ช่างสี</Link>
+                      <Link to="/servicepainter">ช่างสี</Link>
                     </li>
                     <li className="dropdown-menu-item">
-                      <Link to="/UserListForm">ช่างแอร์</Link>
+                      <Link to="/serviceACT">ช่างแอร์</Link>
                     </li>
                     <li className="dropdown-menu-item">
-                      <Link to="/Service">ช่างปูน</Link>
+                      <Link to="/serviceDw">ช่างประตู-หน้าต่าง</Link>
                     </li>
                     <li className="dropdown-menu-item">
-                      <Link to="/Service">ช่างประตู-หน้าต่าง</Link>
+                      <Link to="/serviceCSTW">ช่างก่อสร้าง</Link>
                     </li>
                     <li className="dropdown-menu-item">
-                      <Link to="/Service">ช่างก่อสร้าง</Link>
+                      <Link to="/serviceFurniture">ช่างฟอร์นิเจอร์</Link>
                     </li>
                     <li className="dropdown-menu-item">
-                      <Link to="/Service">ช่างฟอร์นิเจอร์</Link>
+                      <Link to="/servicemotocycle">ช่างรถจักรยานยนต์</Link>
+                    </li>
+                    <li className="dropdown-menu-item">
+                      <Link to="/ช่างซ่อมรถยนต์">ช่างซ่อมรถยนต์</Link>
                     </li>
                   </ul>
                 </div>
               )}
             </li>
           </div>
-
-          <li className="menu-item">
-            <Link to="/Login" className="link">
-              ออกจากระบบ
-            </Link>
-          </li>
+          {localStorage.getItem("user") && (
+            <li className="menu-item">
+              <Link to="/Profile" className="link" onClick={handleProfileClick}>
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="rounded-full text-2xl"
+                />
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

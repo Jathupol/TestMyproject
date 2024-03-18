@@ -26,8 +26,9 @@
   background-color: #0056b3; /* กำหนดสีพื้นหลังของปุ่มเมื่อมีการชี้ไปที่ปุ่ม */
 }
 .slick-image {
-  width: auto; /* ปรับความกว้างของรูปภาพให้ปรับตามขนาดของภาพ */
-  height: 100%; /* ทำให้ความสูงของรูปภาพเต็มความสูงของสไลด์ */
-  margin: 0 auto; /* จัดให้รูปภาพอยู่ตรงกลางแนวนอน */
-  display: block; /* แสดงรูปภาพเป็นบล็อก */
+  width: 100%; /* Set a fixed width for the image */
+  height: 400px; /* Set a fixed height for the image */
+  object-fit: cover; /* Maintain aspect ratio while covering the container */
+  margin: 0 auto; /* Center the image horizontally */
+  display: block; /* Display the image as a block element */
 }

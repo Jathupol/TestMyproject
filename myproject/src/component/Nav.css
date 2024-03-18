@@ -7,15 +7,24 @@
   align-items: center;
   padding: 1rem 2rem;
   margin-bottom: 5px;
-  background-color: hsl(0, 0%, 100%);
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: hsl(207, 100%, 50%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Style for the logo */
 .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+  margin-left: 3px;
+  width: 65px; /* Adjust the width as needed */
+  height: 65px; /* Ensure the height matches the width for a perfect circle */
+  background-color: #fefefe; /* Set the background color */
+  border-radius: 50%; /* Ensure the element is a perfect circle */
+  padding: 5px; /* Adjust the padding as needed */
 }
+
+.logo img {
+  width: 100%; /* Ensure the image fills the container */
+  height: auto; /* Maintain aspect ratio */
+}
+
 
 /* Style for the menu items */
 .menu-items {
@@ -23,6 +32,7 @@
   gap: 2rem;
   list-style-type: none;
   font-size: 0.5rem;
+  margin-top: 13px;
 }
 
 /* Style for the menu item */
@@ -59,14 +69,16 @@
 
 /* Style for the link */
 .link {
-  color: #3182ce;
+  color: white;
   text-decoration: none;
   cursor: pointer;
+  transition: transform 0.3s; /* Corrected transition property */
 }
 
 /* Style for the link when hovered */
 .link:hover {
-  color: #245eab;
+  transform: scale(1.1); /* Corrected transform property */
+  color: bisque;
   display: flex;
 
 }
@@ -90,7 +102,7 @@
 /* Style for the search button */
 .search-button {
   position: absolute;
-  top: 31.8%;
+  top: 32%;
   right: 2px;
   transform: translateY(-50%);
   background-color: #3182ce;

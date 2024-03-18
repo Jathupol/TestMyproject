@@ -1,9 +1,16 @@
-import React from 'react';
-import Navw from './Navw'; // นำเข้าไฟล์ Nav.jsx
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import './Home.css'; // นำเข้าไฟล์ CSS สำหรับ Home
+import React, { useState } from "react";
+import "./Home.css"; // นำเข้าไฟล์ CSS สำหรับ Home
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import ListallService from "../Service/ListallService";
+import CarList from "../Service_List/CarList";
+import Motocycle from "../Service_List/Motocycle";
+import UserList from "../Service_List/UserList";
+import PlumberList from "../Service_List/PlumberList";
+import Footer from "./Footer";
+import FilterService from "./FilteredServiceList";
+import Navw from "./Navw";
 
 function Wellcome() {
   const settings = {
@@ -13,31 +20,37 @@ function Wellcome() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 3500,
   };
 
   return (
     <div>
-      <Navw /> {/* เรียกใช้ Nav component */}
-      <div>
-        <div className="flex justify-center py-5">
-          <button className="mx-2">Button 1</button>
-          <button className="mx-2">Button 2</button>
-          <button className="mx-2">Button 3</button>
+      <Navw />
+      <div className="py-5 ">
+        <div className="bg-slate-200">
+        <h1 className="text-3xl py-3 text-center"> แนะนำ </h1>
+      <Slider {...settings}>
+        <div>
+          <CarList />
         </div>
-        <Slider {...settings}>
-          <div>
-            <img src="https://media.graphassets.com/bqQlJRQgQPSn74p7wo87" alt="Image 1" className="slick-image" />
-          </div>
-          <div>
-            <img src="https://media.istockphoto.com/id/1353480176/th/%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%96%E0%B9%88%E0%B8%B2%E0%B8%A2/%E0%B8%8A%E0%B9%88%E0%B8%B2%E0%B8%87%E0%B9%84%E0%B8%9F%E0%B8%9F%E0%B9%89%E0%B8%B2%E0%B8%8A%E0%B8%B2%E0%B8%A2%E0%B8%97%E0%B9%8D%E0%B8%B2%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%83%E0%B8%99%E0%B8%AA%E0%B8%A7%E0%B8%B4%E0%B8%95%E0%B8%8A%E0%B9%8C%E0%B8%9A%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%94%E0%B8%9E%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%A1%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B9%80%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%A1%E0%B8%95%E0%B9%88%E0%B8%AD%E0%B9%84%E0%B8%9F%E0%B8%9F%E0%B9%89%E0%B8%B2.jpg?s=612x612&w=0&k=20&c=X4JCcfApX9nylM_tJ_-7TotlO-qxryX3E-9u8lgdbow=" alt="Image 2" className="slick-image"/>
-          </div>
-          <div>
-            <img src="https://quizizz.com/media/resource/gs/quizizz-media/quizzes/e5970f35-f00c-4c06-ad2d-2cc3063febcc" alt="Image 3"  className="slick-image"/>
-          </div>
-        </Slider>
+        <div>
+          <UserList />
+        </div>
+        <div>
+          <PlumberList />
+        </div>
+      </Slider>
       </div>
+      <br/>
+      <h1 className="py-3 text-center text-2xl">รายการช่าง อื่นๆ</h1>
+      <FilterService />
+
+      <ListallService />
+
+      </div>
+      <Footer />
     </div>
+    
   );
 }
 

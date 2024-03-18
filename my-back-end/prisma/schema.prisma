@@ -29,6 +29,7 @@ model Service {
   province    String
   amphure     String
   tambon      String
+  detail      String?
 }
 
 model post {

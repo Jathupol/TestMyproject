@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import provinceData from "../component/api_province.json";
-import amphureData from "../component/api_amphure.json";
-import tambonData from "../component/api_tambon.json";
 
 import "./Register.css";
+import Navw from "./Navw";
 
 
 const Register = () => {
   return (
     <> 
+    <Navw />
     <div className="register-container">
       
       <div className="register-form ">

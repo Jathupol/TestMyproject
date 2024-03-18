@@ -1,46 +1,126 @@
-/* src/components/Nav.css */
-.mobile-menu {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .mobile-menu li {
-    padding-top: 0.5rem;
-  }
-  
-  /* เพิ่มการเพิ่มขนาดและสไตล์ข้อความเมื่อ hover ไปยังลิงก์ */
-  .menu-link:hover {
-    font-size: 1.2em; /* เพิ่มขนาดข้อความเมื่อ hover */
-    font-weight: bold; /* เพิ่มน้ำหนักตัวอักษรเมื่อ hover */
-  }
-  .menu-link {
-    transition: font-size 0.3s ease; /* เพิ่ม transition เพื่อสร้างการเปลี่ยนแปลงของ font-size อย่างนุ่มนวล */
-  }
+/* Nav.css */
 
-  .login-button:hover {
-    background-color: #0574dc; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
-    border-color: #0574dc; /* เปลี่ยนสีเส้นขอบเมื่อ hover */
-  }
+/* Style for the navigation container */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  margin-bottom: 5px;
+  background-color: hsl(207, 100%, 50%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 10px rgba(0, 0, 0, 0.05);
+}
 
-  .search-input {
-    width: 600px; /* กำหนดความกว้างของช่องค้นหา */
-    height: 35px;
-    /* border: 1px solid #ccc; เพิ่มเส้นขอบแบบ solid และสีเทา */
-    border-radius: 5px; /* เพิ่มขอบมน */
-    transition: width 0.3s ease; /* เพิ่ม transition เมื่อมีการเปลี่ยนความกว้าง */
-    margin-left: 100px;
-    
-  }
+.logo {
+  margin-left: 3px;
+  width: 65px; /* Adjust the width as needed */
+  height: 65px; /* Ensure the height matches the width for a perfect circle */
+  background-color: #fefefe; /* Set the background color */
+  border-radius: 50%; /* Ensure the element is a perfect circle */
+  padding: 5px; /* Adjust the padding as needed */
+}
+
+.logo img {
+  width: 100%; /* Ensure the image fills the container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
+/* Style for the menu items */
+.menu-items {
+  display: flex;
+  gap: 2rem;
+  list-style-type: none;
+  font-size: 0.5rem;
+  margin-top: 13px;
+}
+
+/* Style for the menu item */
+.menu-item {
+  font-size: 1rem;
+}
+
+/* Style for the dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  width: 200px; /* เพิ่มความกว้างตามต้องการ */
+  display: flex;
+
+}
+.link:hover + .dropdown-menu {
+  display: flex;
+}
+
+/* Style for the dropdown menu when it's open */
+.dropdown-menu.active {
+  display: block;
+}
+
+/* Style for the dropdown menu items */
+.dropdown-menu-item {
+  font-size: 1rem;
+}
+
+/* Style for the link */
+.link {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s; /* Corrected transition property */
+}
+
+/* Style for the link when hovered */
+.link:hover {
+  transform: scale(1.1); /* Corrected transform property */
+  color: bisque;
+  display: flex;
+
+}
+/* Nav.css */
+
+/* Style for the search form container */
+.search-form {
+  position: relative;
+
+}
+
+/* Style for the search input */
+.search-input {
+  padding: 0.5rem 0.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: auto;
+  height: 30px;
+}
+
+/* Style for the search button */
+.search-button {
+  position: absolute;
+  top: 32%;
+  right: 2px;
+  transform: translateY(-50%);
+  background-color: #3182ce;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem;
+  cursor: pointer;
   
-  /* เพิ่มสไตล์เมื่อ hover ไปยังช่องค้นหา */
-  .search-input:hover {
-    width: 630px; /* เพิ่มความกว้างเมื่อ hover */
-    border-color: #007bff; /* เปลี่ยนสีเส้นขอบเป็นสีน้ำเงินเมื่อ hover */
-  }
-  
-  /* ปรับสไตล์ของปุ่มค้นหาเมื่อ hover */
-  .search-button:hover {
-    background-color: #0574dc; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
-    border-color: #0574dc; /* เปลี่ยนสีเส้นขอบเมื่อ hover */
-    color: #fff; /* เปลี่ยนสีตัวอักษรเป็นขาวเมื่อ hover */
-  }
+}
+
+/* Style for the search button icon */
+.search-button svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* Style for the search button icon on hover */
+.search-button:hover {
+  background-color: #245eab;
+}
