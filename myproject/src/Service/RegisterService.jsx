@@ -7,7 +7,7 @@ import tambonData from "../component/api_tambon.json";
 import jobsData from "./jobs.json";
 
 import "../component/Register.css";
-import Navw from "../component/Navw";
+import Nav from "../component/Nav";
 
 const RegisterService = () => {
   const [formData, setFormData] = useState({
@@ -81,7 +81,7 @@ const RegisterService = () => {
 
   return (
     <>
-    <Navw />
+    <Nav />
     <div className="register-container">
       <div className="register-form">
         <h2 className="register-title text-center">ลงทะเบียนสำหรับผู้ให้บริการ</h2>

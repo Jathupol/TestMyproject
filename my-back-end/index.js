@@ -76,29 +76,6 @@ app.post('/register', async (req, res) => {
   }
 });
 
-app.post('/register-User', async (req, res) => {
-  const { username, email, password, numberPhone } = req.body;
-
-  // Hash the password
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  try {
-    const user = await prisma.user.create({
-      data: {
-        username,
-        email,
-        password: hashedPassword,
-        numberPhone,
-      },
-    });
-
-    res.json(user);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
 // Login endpoint
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -381,6 +358,186 @@ app.get('/allservice', async (req, res) => {
   }
 });
 
+app.post("/filtered-services", async (req, res) => {
+  const { province, amphure, tambon ,service} = req.body;
+  try {
+    const filteredServices = await prisma.service.findMany({
+      where: {
+        province: province,
+        amphure: amphure,
+        tambon: tambon,
+        service: service,
+
+      },
+    });
+    res.json(filteredServices);
+  } catch (error) {
+    console.error("Error fetching filtered services:", error);
+    res.status(500).json({ error: "Error fetching filtered services" });
+  }
+});
+app.post("/filtered-pb", async (req, res) => {
+  const { province, amphure, tambon ,service} = req.body;
+  try {
+    const filteredetc = await prisma.service.findMany({
+      where: {
+        province: province,
+        amphure: amphure,
+        tambon: tambon,
+        service: 'ช่างประปา',
+
+      },
+    });
+    res.json(filteredetc);
+  } catch (error) {
+    console.error("Error fetching filtered services:", error);
+    res.status(500).json({ error: "Error fetching filtered services" });
+  }
+});
+app.post("/filtered-pt", async (req, res) => {
+  const { province, amphure, tambon ,service} = req.body;
+  try {
+    const filteredetc = await prisma.service.findMany({
+      where: {
+        province: province,
+        amphure: amphure,
+        tambon: tambon,
+        service: 'ช่างสี',
+
+      },
+    });
+    res.json(filteredetc);
+  } catch (error) {
+    console.error("Error fetching filtered services:", error);
+    res.status(500).json({ error: "Error fetching filtered services" });
+  }
+});
+app.post("/filtered-car", async (req, res) => {
+  const { province, amphure, tambon ,service} = req.body;
+  try {
+    const filteredetc = await prisma.service.findMany({
+      where: {
+        province: province,
+        amphure: amphure,
+        tambon: tambon,
+        service: 'ช่างซ่อมรถยนต์',
+
+      },
+    });
+    res.json(filteredetc);
+  } catch (error) {
+    console.error("Error fetching filtered services:", error);
+    res.status(500).json({ error: "Error fetching filtered services" });
+  }
+});
+app.post("/filtered-dwt", async (req, res) => {
+  const { province, amphure, tambon ,service} = req.body;
+  try {
+    const filteredetc = await prisma.service.findMany({
+      where: {
+        province: province,
+        amphure: amphure,
+        tambon: tambon,
+        service: 'ช่างประตู-หน้าต่าง',
+
+      },
+    });
+    res.json(filteredetc);
+  } catch (error) {
+    console.error("Error fetching filtered services:", error);
+    res.status(500).json({ error: "Error fetching filtered services" });
+  }
+});
+app.post("/filtered-act", async (req, res) => {
+  const { province, amphure, tambon ,service} = req.body;
+  try {
+    const filteredetc = await prisma.service.findMany({
+      where: {
+        province: province,
+        amphure: amphure,
+        tambon: tambon,
+        service: 'ช่างแอร์',
+
+      },
+    });
+    res.json(filteredetc);
+  } catch (error) {
+    console.error("Error fetching filtered services:", error);
+    res.status(500).json({ error: "Error fetching filtered services" });
+  }
+});
+app.post("/filtered-motocycle", async (req, res) => {
+  const { province, amphure, tambon ,service} = req.body;
+  try {
+    const filteredetc = await prisma.service.findMany({
+      where: {
+        province: province,
+        amphure: amphure,
+        tambon: tambon,
+        service: 'ช่างซ่อมรถจักรยานยนต์',
+
+      },
+    });
+    res.json(filteredetc);
+  } catch (error) {
+    console.error("Error fetching filtered services:", error);
+    res.status(500).json({ error: "Error fetching filtered services" });
+  }
+});
+app.post("/filtered-etc", async (req, res) => {
+  const { province, amphure, tambon ,service} = req.body;
+  try {
+    const filteredetc = await prisma.service.findMany({
+      where: {
+        province: province,
+        amphure: amphure,
+        tambon: tambon,
+        service: 'ช่างไฟฟ้า',
+
+      },
+    });
+    res.json(filteredetc);
+  } catch (error) {
+    console.error("Error fetching filtered services:", error);
+    res.status(500).json({ error: "Error fetching filtered services" });
+  }
+});
+app.post("/filtered-furniture", async (req, res) => {
+  const { province, amphure, tambon ,service} = req.body;
+  try {
+    const filteredetc = await prisma.service.findMany({
+      where: {
+        province: province,
+        amphure: amphure,
+        tambon: tambon,
+        service: 'ช่างฟอร์นิเจอร์',
+
+      },
+    });
+    res.json(filteredetc);
+  } catch (error) {
+    console.error("Error fetching filtered services:", error);
+    res.status(500).json({ error: "Error fetching filtered services" });
+  }
+});
+app.post("/filtered-cstw", async (req, res) => {
+  const { province, amphure, tambon ,service} = req.body;
+  try {
+    const filteredetc = await prisma.service.findMany({
+      where: {
+        province: province,
+        amphure: amphure,
+        tambon: tambon,
+        service: 'ช่างก่อสร้าง',
+
+      },
+    });
+    res.json(filteredetc);
+  } catch (error) {
+    console.error("Error fetching filtered services:", error);
+    res.status(500).json({ error: "Error fetching filtered services" });
+  }
+});
 
 
 app.listen(PORT, () => {

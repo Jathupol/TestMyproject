@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import Navw from "./Navw";
+import Nav from "./Nav";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -52,7 +52,7 @@ const Login = () => {
 
   return (
     <>
-      <Navw />
+      <Nav />
       <div
         className={`max-w-md mx-auto mt-10 px-4 py-6 bg-white shadow-md rounded-md`}
       >

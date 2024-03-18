@@ -9,7 +9,7 @@ import Profile from './component/Profile';
 import RegisterService from './Service/RegisterService';
 import RegisterCustomer from './component/RegisterCustomer';
 import UserCard from './component/UserCard ';
-import SearchServiceForm from './Service_List/SearchService';
+import SearchServiceForm from './Service_List/SearchServiceForm';
 import ServicePlumber from './Service_List/ServicePlumber';
 import ServicePaniter from './Service_List/ServicePainter';
 import ServiceACT from './Service_List/ServiceACT';
@@ -31,11 +31,6 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path='/search' element={<SearchServiceForm/> } />
-        {/* Add more routes for other components */}
-        {/* <Route path="/other" element={<OtherComponent />} /> */}
-        {/* <Route path="/another" element={<AnotherComponent />} /> */}
-        <Route path="/registerservice" element={<RegisterService />} />
-        <Route path="/registeruser" element={<RegisterCustomer />} />
         <Route path="/usercard" element={<UserCard />} />
         <Route path="/profile" element={<Profile />} /> {/* Add the route for electrician component */}
         <Route path="/serviceplumer" element={<ServicePlumber />} /> {/* Add the route for electrician component */}

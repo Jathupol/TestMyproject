@@ -7,7 +7,7 @@ import provinceData from "../component/api_province.json";
 import jobsData from "../Service/jobs.json";
 import "../Service/card.css";
 
-const CarList = () => {
+const PlumberFilter = () => {
   const [formData, setFormData] = useState({
     province: "",
     amphure: "",
@@ -63,7 +63,7 @@ const CarList = () => {
         tambon: formData.tambon,
       };
       const response = await axios.post(
-        "http://localhost:3000/filtered-car",
+        "http://localhost:3000/filtered-pb",
         filteredData
       );
       console.log("Response data:", response.data); // Log response data
@@ -202,4 +202,4 @@ const CarList = () => {
   );
 };
 
-export default CarList;
+export default PlumberFilter;

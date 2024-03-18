@@ -7,11 +7,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ListallService from "../Service/ListallService";
 import CarList from "../Service_List/CarList";
-import Motocycle from "../Service_List/Motocycle";
 import UserList from "../Service_List/UserList";
-import PlumberList from "../Service_List/PlumberList";
 import Footer from "./Footer";
-import FilterService from "./FilteredServiceList";
+import SearchForm from "./SearchForm ";
+import Car from "../Service_List/Car";
+import Plumber from "../Service_List/Plumber";
+
 
 function Home() {
   const settings = {
@@ -32,18 +33,20 @@ function Home() {
         <h1 className="text-3xl py-3 text-center"> แนะนำ </h1>
       <Slider {...settings}>
         <div>
-          <CarList />
+          <Car />
         </div>
         <div>
           <UserList />
         </div>
         <div>
-          <PlumberList />
+          <Plumber />
         </div>
       </Slider>
       </div>
       <br/>
       <h1 className="py-3 text-center text-2xl">รายการช่าง อื่นๆ</h1>
+      <SearchForm />
+      <hr />
       <ListallService />
 
       </div>

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react"; // Import useEffect hook
 import axios from "axios";
 import { FaUser, FaTimes } from "react-icons/fa"; // Import FaUser icon
-import amphureData from "../component/api_amphure.json";
-import tambonData from "../component/api_tambon.json";
-import provinceData from "../component/api_province.json";
+import amphureData from "./api_amphure.json";
+import tambonData from "./api_tambon.json";
+import provinceData from "./api_province.json";
 import jobsData from "../Service/jobs.json";
 import "../Service/card.css";
 
-const CarList = () => {
+const SearchForm = () => {
   const [formData, setFormData] = useState({
     province: "",
     amphure: "",
@@ -63,7 +63,7 @@ const CarList = () => {
         tambon: formData.tambon,
       };
       const response = await axios.post(
-        "http://localhost:3000/filtered-car",
+        "http://localhost:3000/filtered-services",
         filteredData
       );
       console.log("Response data:", response.data); // Log response data
@@ -202,4 +202,4 @@ const CarList = () => {
   );
 };
 
-export default CarList;
+export default SearchForm;

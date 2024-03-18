@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Nav from "./Nav";
+import provinceData from "./api_province.json";
+import amphureData from "./api_amphure.json";
+import tambonData from "./api_tambon.json";
+import jobsData from "../Service/jobs.json";
+
 import axios from "axios";
 
 const Profile = () => {
@@ -17,25 +22,66 @@ const Profile = () => {
     tambon: "",
     detail: "",
   });
+  const [amphures, setAmphures] = useState([]);
+  const [tambons, setTambons] = useState([]);
+  const provinces = provinceData;
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
     setUser(userData);
-    setFormData({
-      fName: userData.fName,
-      lName: userData.lName,
-      email: userData.email,
-      service: userData.service,
-      province: userData.province,
-      amphure: userData.amphure,
-      tambon: userData.tambon,
-      detail: userData.detail,
-    });
+    if (userData) {
+      setFormData({
+        fName: userData.fName,
+        lName: userData.lName,
+        email: userData.email,
+        service: userData.service,
+        province: userData.province,
+        amphure: userData.amphure,
+        tambon: userData.tambon,
+        detail: userData.detail,
+      });
+    }
   }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleChangeProvince = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+
+    if (name === "province") {
+      const selectedProvince = provinces.find(
+        (province) => province.name_th === value
+      );
+      if (selectedProvince) {
+        const provinceId = selectedProvince.id;
+        const filteredAmphures = amphureData.filter(
+          (amphure) => amphure.province_id === provinceId
+        );
+        setAmphures(filteredAmphures);
+        setTambons([]); // Reset tambons when province changes
+      }
+    }
+
+    if (name === "amphure") {
+      const selectedAmphure = amphures.find(
+        (amphure) => amphure.name_th === value
+      );
+      if (selectedAmphure) {
+        const amphureId = selectedAmphure.id;
+        const filteredTambons = tambonData.filter(
+          (tambon) => tambon.amphure_id === amphureId
+        );
+        setTambons(filteredTambons);
+      }
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("user");
     window.location.href = "/"; // Redirect to registration page for craftsmen
@@ -76,11 +122,23 @@ const Profile = () => {
       console.error("Error updating user information:", error);
       alert("An error occurred while updating user information");
     }
-    if (daysDifference > 21) {
-      alert("Cannot update user information. Last update was more than 21 days ago.");
-      return;
-    }
   };
+
+  const handleEdit = () => {
+    setFormData({
+      fName: user.fName,
+      lName: user.lName,
+      email: user.email,
+      service: user.service,
+      province: user.province,
+      amphure: user.amphure,
+      tambon: user.tambon,
+      detail: user.detail,
+    });
+    setEditing(true);
+  };
+  
+  
   return (
     <>
       <Nav />
@@ -98,7 +156,7 @@ const Profile = () => {
           ) : (
             <button
               className="ml-auto px-3 py-1 bg-blue-500 text-white rounded-md"
-              onClick={() => setEditing(true)}
+              onClick={handleEdit}
             >
               <FontAwesomeIcon icon={faEdit} className="mr-1" />
               แก้ไข
@@ -106,7 +164,7 @@ const Profile = () => {
           )}
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
+        <div className="mb-4">
             <label htmlFor="fName" className="block mb-2">
               ชื่อ:
             </label>
@@ -182,61 +240,84 @@ const Profile = () => {
             
           </div>
           <div className="mb-4">
-            <label htmlFor="province" className="block mb-2">
-              จังหวัด :
+  <label htmlFor="province">จังหวัด:</label>
+  <select
+    id="province"
+    name="province"
+    value={editing ? formData.province : user ? user.province : ""}
+    onChange={handleChangeProvince}
+    className="register-input"
+    disabled={!editing}
+  >
+    <option value="">เลือกจังหวัด</option>
+    {provinces.map((province, index) => (
+      <option key={index} value={province.name_th}>
+        {province.name_th}
+      </option>
+    ))}
+  </select>
+</div>
+<div className="mb-4">
+  <label htmlFor="amphure">อำเภอ:</label>
+  <select
+    id="amphure"
+    name="amphure"
+    value={editing ? formData.amphure : user ? user.amphure : ""}
+    onChange={handleChangeProvince}
+    className="register-input"
+    disabled={!editing}
+  >
+    <option value="">เลือกอำเภอ</option>
+    {editing
+      ? amphures.map((amphure, index) => (
+          <option key={index} value={amphure.name_th}>
+            {amphure.name_th}
+          </option>
+        ))
+      : user && (
+          <option value={user.amphure} selected>
+            {user.amphure}
+          </option>
+        )}
+  </select>
+</div>
+<div className="mb-4">
+  <label htmlFor="tambon">ตำบล:</label>
+  <select
+    id="tambon"
+    name="tambon"
+    value={editing ? formData.tambon : user ? user.tambon : ""}
+    onChange={handleChangeProvince}
+    className="register-input"
+    disabled={!editing}
+  >
+    <option value="">เลือกตำบล</option>
+    {editing
+      ? tambons.map((tambon, index) => (
+          <option key={index} value={tambon.name_th}>
+            {tambon.name_th}
+          </option>
+        ))
+      : user && (
+          <option value={user.tambon} selected>
+            {user.tambon}
+          </option>
+        )}
+  </select>
+</div>
+          <div className="mb-4">
+            <label htmlFor="detail" className="block mb-2">
+              รายละเอียด :
             </label>
-            <input
-              type="text"
-              id="province"
-              name="province"
-              value={formData.province}
+            <textarea
+              id="detail"
+              name="detail"
+              value={formData.detail}
               onChange={handleChange}
               className="border border-gray-300 px-3 py-2 rounded-md w-full"
               disabled={!editing}
+              rows={4} // กำหนดจำนวนบรรทัดที่แสดงใน textarea
             />
-            
-          </div>
-          <div className="mb-4">
-            <label htmlFor="amphure" className="block mb-2">
-              อำเภอ :
-            </label>
-            <input
-              type="text"
-              id="amphure"
-              name="amphure"
-              value={formData.amphure}
-              className="border border-gray-300 px-3 py-2 rounded-md w-full"
-            />
-            
-          </div>
-          <div className="mb-4">
-            <label htmlFor="tambon" className="block mb-2">
-              ตำบล :
-            </label>
-            <input
-              type="text"
-              id="tambon"
-              name="tambon"
-              value={formData.tambon}
-              onChange={handleChange}
-              className="border border-gray-300 px-3 py-2 rounded-md w-full"
-              disabled={!editing}
-            />
-            
-          </div>
-          <div className="mb-4">
-          <label htmlFor="detail" className="block mb-2">
-  รายละเอียด :
-</label>
-<textarea
-  id="detail"
-  name="detail"
-  value={formData.detail}
-  onChange={handleChange}
-  className="border border-gray-300 px-3 py-2 rounded-md w-full"
-  disabled={!editing}
-  rows={4} // กำหนดจำนวนบรรทัดที่แสดงใน textarea
-/>
           </div>
           {/* Repeat similar code for other fields */}
           <button
@@ -247,17 +328,8 @@ const Profile = () => {
           >
             บันทึก
           </button>
-          <div>
-          <ul>
-        <li className="menu-item">
-          <a className="link" onClick={handleLogout}>
-              ออกจากระบบ
-            </a>
-          </li>
-        </ul>
-          </div>
         </form>
-        {user ? (
+        {user && (
           <div className="text-center mt-4">
             <button
               className="bg-red-500 text-white px-4 py-2 rounded-md"
@@ -266,17 +338,7 @@ const Profile = () => {
               ออกจากระบบ
             </button>
           </div>
-        ) : (
-          <div className="text-center mt-4">
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-md"
-              onClick={() => window.location.href = "/register"}
-            >
-              ลงทะเบียนสำหรับช่าง
-            </button>
-          </div>
         )}
-
       </div>
     </>
   );

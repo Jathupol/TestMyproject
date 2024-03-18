@@ -37,6 +37,19 @@ const Nav = () => {
     }
   };
 
+  const handleRegisterClick = () => {
+    try {
+      const userData = JSON.parse(localStorage.getItem("user"));
+      if (!userData) {
+        navigate("/register");
+      } else {
+        throw new Error("คุณได้ลงทะเบียนเข้าสู่ระบบแล้ว");
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <nav className="nav-container">
       <div className="logo">
@@ -46,10 +59,9 @@ const Nav = () => {
       </div>
       <div>
         <ul className="menu-items">
-          <li className="dropdown-menu-item">
+          <li className="menu-item text-fuchsia-50">
             <Link to="/home">หน้าหลัก</Link>
           </li>
-
           <div className="relative">
             <li className="menu-item dropdown">
               <span onClick={toggleMenu} className="link">
@@ -90,6 +102,15 @@ const Nav = () => {
               )}
             </li>
           </div>
+          {!localStorage.getItem("user") && (
+
+           <li className="menu-item">
+            <Link to="/login" className="link" onClick={handleRegisterClick}>
+              สำหรับช่าง
+            </Link>
+          </li>
+          )}
+
           {localStorage.getItem("user") && (
             <li className="menu-item">
               <Link to="/Profile" className="link" onClick={handleProfileClick}>
